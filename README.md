@@ -4,7 +4,7 @@ Request, Wait, Launch for Concurrent Threads Que.
 ## Similar Repository
  - https://github.com/cameron314/concurrentqueue
    
-# Request, Wait, Launch for Concurent Threads Que, Dynamic Link Library.
+# Request, Wait, Launch for Concurent Threads at Ends, Dynamic Link Library.
 
 ### Using C++
 
