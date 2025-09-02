@@ -1,7 +1,7 @@
 // LIB_ConcurrentQue_END.cpp : Defines the exported functions for the DLL.
 #include "pch.h"
 #include "framework.h"
-#include "LaunchEnableForConcurrentThreadsAt_ENDS.h"
+#include "LIB_LaunchEnableForConcurrentThreadsAt_END.h"
 
 class Avril_FSD::ConcurrentQue_END_Framework* ptr_ConcurrentQue_END_Framework = NULL;
 
