@@ -15,42 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LaunchEnableForConcurrentThreadsAt_ENDS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConcurrentQue_Server_Framework.h">
+    <ClInclude Include="ConcurrentQue_END_Framework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConcurrentQue_Server_Global.h">
+    <ClInclude Include="ConcurrentQue_END_Global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConcurrentQue_Server_LaunchConcurrency.h">
+    <ClInclude Include="ConcurrentQue_END_LaunchConcurrency.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConcurrentQue_Server_LaunchConcurrency_Control.h">
+    <ClInclude Include="ConcurrentQue_END_LaunchConcurrency_Control.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LaunchEnableForConcurrentThreadsAt_ENDS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ConcurrentQue_Server_Framework.cpp">
+    <ClCompile Include="ConcurrentQue_END_Framework.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ConcurrentQue_Server_Global.cpp">
+    <ClCompile Include="ConcurrentQue_END_Global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ConcurrentQue_Server_LaunchConcurrency.cpp">
+    <ClCompile Include="ConcurrentQue_END_LaunchConcurrency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ConcurrentQue_Server_LaunchConcurrency_Control.cpp">
+    <ClCompile Include="ConcurrentQue_END_LaunchConcurrency_Control.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
