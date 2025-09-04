@@ -11,7 +11,7 @@ namespace Avril_FSD
         void Thread_Start(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId);
         void Thread_End(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId);
 
-        class ConcurrentQue_END_Global* Get_LaunchConcurrency_Global();
+        static class ConcurrentQue_END_Global* Get_LaunchConcurrency_Global();
         class ConcurrentQue_END_LaunchConcurrency_Control* Get_Control_Of_LaunchConcurrency();
 
     private:

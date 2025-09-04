@@ -6,20 +6,20 @@
 
 namespace Avril_FSD
 {
-	class LAUNCHENABLEFORCONCURRENTTHREADSATEND_API ConcurrentQue_END {
+	class LAUNCHENABLEFORCONCURRENTTHREADSATEND_API ConcurrentQue_END_Library {
 	public:
-		ConcurrentQue_END();
+		ConcurrentQue_END_Library();
 		static void* Initialise_ConcurrentQue();
 
-		void Request_Wait_Launch(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId);
-		void Thread_End(class Avril_FSD::ConcurrentQue_END_Framework*, unsigned char concurrent_CoreId);
+		static void Request_Wait_Launch(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId);
+		static void Thread_End(class Avril_FSD::ConcurrentQue_END_Framework*, unsigned char concurrent_CoreId);
 
-		__int8 Get_coreId_To_Launch(class Avril_FSD::ConcurrentQue_END_Framework* obj);
-		bool Get_Flag_Active(class Avril_FSD::ConcurrentQue_END_Framework* obj);
-		bool Get_Flag_ConcurrentCoreState(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId);
-		bool Get_Flag_Idle(class Avril_FSD::ConcurrentQue_END_Framework* obj);
-		bool Get_State_LaunchBit(class Avril_FSD::ConcurrentQue_END_Framework* obj);
-		void Set_state_ConcurrentCore(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId, bool value);
+		static __int8 Get_coreId_To_Launch(class Avril_FSD::ConcurrentQue_END_Framework* obj);
+		static bool Get_Flag_Active(class Avril_FSD::ConcurrentQue_END_Framework* obj);
+		static bool Get_Flag_ConcurrentCoreState(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId);
+		static bool Get_Flag_Idle(class Avril_FSD::ConcurrentQue_END_Framework* obj);
+		static bool Get_State_LaunchBit(class Avril_FSD::ConcurrentQue_END_Framework* obj);
+		static void Set_state_ConcurrentCore(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId, bool value);
 
 	private:
 		static class ConcurrentQue_END_Framework* Get_ConcurrentQue_END_Framework();
