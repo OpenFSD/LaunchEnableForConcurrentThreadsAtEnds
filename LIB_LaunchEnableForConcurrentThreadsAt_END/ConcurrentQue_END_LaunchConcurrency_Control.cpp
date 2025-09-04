@@ -41,97 +41,97 @@ Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::~ConcurrentQue_END_Launc
 
 }
 
-void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::LaunchEnable_Activate(class Avril_FSD::ConcurrentQue_END_Global* global)
+void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::LaunchEnable_Activate(Avril_FSD::ConcurrentQue_END_Framework* obj)
 {
-    Set_state_ConcurrentCore(Get_flag_CoreId_Of_CoreToLaunch(), global->Get_flag_core_ACTIVE());
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_state_ConcurrentCore(obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_flag_core_ACTIVE(), obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_que_CoreToLaunch(0));
 }
 
-void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::LaunchEnable_Request(unsigned char concurrent_CoreId, class Avril_FSD::ConcurrentQue_END_Global* global)
+void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::LaunchEnable_Request(Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId)
 {
-    while (Get_state_ConcurrentCore(Get_flag_CoreId_Of_CoreToLaunch()) != global->Get_flag_core_IDLE())
+    while (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_state_ConcurrentCore(Get_flag_CoreId_Of_CoreToLaunch()) != obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_flag_core_IDLE())
     {
 
     }
-    while (Get_flag_praisingLaunch() == true)
+    while (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_flag_praisingLaunch() == true)
     {
-        DynamicStagger(concurrent_CoreId);
+        obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->DynamicStagger(obj, concurrent_CoreId);
     }
-    Set_flag_praisingLaunch(true);
-    Set_concurrentCycle_Try_CoreId_Index(Get_new_concurrentCycle_Try_CoreId_Index());
-    if (Get_concurrentCycle_Try_CoreId_Index() == concurrent_CoreId)
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_flag_praisingLaunch(true);
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_concurrentCycle_Try_CoreId_Index(Get_new_concurrentCycle_Try_CoreId_Index());
+    if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_concurrentCycle_Try_CoreId_Index() == concurrent_CoreId)
     {
-
+        //exit
     }
     else
     {
-        Set_new_concurrentCycle_Try_CoreId_Index(Get_concurrentCycle_Try_CoreId_Index() + 1);
-        if (Get_concurrentCycle_Try_CoreId_Index() == 3)//NUMBER OF CONCURRENT CORES
+        obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_new_concurrentCycle_Try_CoreId_Index(Get_concurrentCycle_Try_CoreId_Index() + 1);
+        if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_concurrentCycle_Try_CoreId_Index() == 3)//NUMBER OF CONCURRENT CORES
         {
-            Set_new_concurrentCycle_Try_CoreId_Index(0);
+            obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_new_concurrentCycle_Try_CoreId_Index(0);
         }
-        Set_flag_praisingLaunch(false);
-        LaunchEnable_Request(concurrent_CoreId, global);
+        obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_flag_praisingLaunch(false);
+        obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->LaunchEnable_Request(obj, concurrent_CoreId);
     }
 }
 
-void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::LaunchEnable_SortQue(class Avril_FSD::ConcurrentQue_END_Global* ptr_Global, unsigned char number_Implemented_Cores)
+void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::LaunchEnable_SortQue(Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char number_Implemented_Cores)
 {
     for (unsigned char index_A = 0; index_A < number_Implemented_Cores - 2; index_A++)
     {
         for (unsigned char index_B = index_A + 1; index_B < number_Implemented_Cores - 1; index_B++)
         {
-            if (Get_state_ConcurrentCore(Get_que_CoreToLaunch(index_A)) == ptr_Global->Get_flag_core_ACTIVE())
+            if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_state_ConcurrentCore(Get_que_CoreToLaunch(index_A)) == obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_flag_core_ACTIVE())
             {
-                if (Get_state_ConcurrentCore(Get_que_CoreToLaunch(index_B)) == ptr_Global->Get_flag_core_IDLE())
+                if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_state_ConcurrentCore(Get_que_CoreToLaunch(index_B)) == obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_flag_core_IDLE())
                 {
-                    LaunchEnable_ShiftQueValues(index_A, index_B);
+                    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->LaunchEnable_ShiftQueValues(obj, index_A, index_B);
                 }
-                else if (Get_state_ConcurrentCore(Get_que_CoreToLaunch(index_B)) == ptr_Global->Get_flag_core_ACTIVE())
+                else if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_state_ConcurrentCore(obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_que_CoreToLaunch(index_B)) == obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_flag_core_ACTIVE())
                 {
-                    if (Get_count_LaunchActive_For(index_A) > Get_count_LaunchActive_For(index_B))
+                    if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_count_LaunchActive_For(index_A) > obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_count_LaunchActive_For(index_B))
                     {
-                        LaunchEnable_ShiftQueValues(index_A, index_B);
+                        obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->LaunchEnable_ShiftQueValues(obj, index_A, index_B);
                     }
                 }
             }
-            else if (Get_state_ConcurrentCore(Get_que_CoreToLaunch(index_A)) == ptr_Global->Get_flag_core_IDLE())
+            else if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_state_ConcurrentCore(obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_que_CoreToLaunch(index_A)) == obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_flag_core_IDLE())
 
-                if (Get_state_ConcurrentCore(Get_que_CoreToLaunch(index_B)) == ptr_Global->Get_flag_core_IDLE())
+                if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_state_ConcurrentCore(obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_que_CoreToLaunch(index_B)) == obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_flag_core_IDLE())
                 {
-                    if (Get_count_LaunchIdle_For(index_A) < Get_count_LaunchIdle_For(index_B))
+                    if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_count_LaunchIdle_For(index_A) < obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_count_LaunchIdle_For(index_B))
                     {
-                        LaunchEnable_ShiftQueValues(index_A, index_B);
+                        obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->LaunchEnable_ShiftQueValues(obj, index_A, index_B);
                     }
                 }
         }
     }
 }
 
-void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::LaunchQue_Update(unsigned char number_Implemented_Cores)
+void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::LaunchQue_Update(Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char number_Implemented_Cores)
 {
     for (unsigned char index = 0; index < number_Implemented_Cores; index++)
     {
-        switch (Get_state_ConcurrentCore(index))
+        switch (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_state_ConcurrentCore(index))
         {
         case false:
         {
-            Set_count_LaunchActive_For(index, 0);
-            Set_count_LaunchIdle_For(index, Get_count_LaunchIdle_For(index) + 1);
+            obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_count_LaunchActive_For(index, 0);
+            obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_count_LaunchIdle_For(index, obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_count_LaunchIdle_For(index) + 1);
             break;
         }
         case true:
         {
-            Set_count_LaunchActive_For(index, Get_count_LaunchActive_For(index) + 1);
-            Set_count_LaunchIdle_For(index, 0);
+            obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_count_LaunchActive_For(index, obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_count_LaunchActive_For(index) + 1);
+            obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_count_LaunchIdle_For(index, 0);
             break;
         }
         }
     }
 }
 
-void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::DynamicStagger(unsigned char ptr_coreId)
+void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::DynamicStagger(Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId)
 {
-    if (Get_concurrentCycle_Try_CoreId_Index() == ptr_coreId)
+    if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_concurrentCycle_Try_CoreId_Index() == concurrent_CoreId)
     {
         //exit early
     }
@@ -146,21 +146,21 @@ void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::DynamicStagger(unsi
     }
 }
 
-void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::LaunchEnable_ShiftQueValues(unsigned char concurrent_CoreId_A, unsigned char concurrent_CoreId_B)
+void Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::LaunchEnable_ShiftQueValues(Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId_A, unsigned char concurrent_CoreId_B)
 {
-    int temp_Int;// = new int(0);
-    temp_Int = Get_count_LaunchActive_For(concurrent_CoreId_A);
-    Set_count_LaunchActive_For(concurrent_CoreId_A, Get_count_LaunchActive_For(concurrent_CoreId_B));
-    Set_count_LaunchActive_For(concurrent_CoreId_B, temp_Int);
+    int temp_Int;
+    temp_Int = obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_count_LaunchActive_For(concurrent_CoreId_A);
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_count_LaunchActive_For(concurrent_CoreId_A, obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_count_LaunchActive_For(concurrent_CoreId_B));
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_count_LaunchActive_For(concurrent_CoreId_B, temp_Int);
 
-    temp_Int = Get_count_LaunchIdle_For(concurrent_CoreId_A);
-    Set_count_LaunchIdle_For(concurrent_CoreId_A, Get_count_LaunchIdle_For(concurrent_CoreId_B));
-    Set_count_LaunchIdle_For(concurrent_CoreId_B, temp_Int);
+    temp_Int = obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_count_LaunchIdle_For(concurrent_CoreId_A);
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_count_LaunchIdle_For(concurrent_CoreId_A, obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_count_LaunchIdle_For(concurrent_CoreId_B));
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_count_LaunchIdle_For(concurrent_CoreId_B, temp_Int);
 
-    unsigned char temp_UnnsignedChar;// = new unsigned char(0);
-    temp_UnnsignedChar = Get_que_CoreToLaunch(concurrent_CoreId_A);
-    Set_que_CoreToLaunch(concurrent_CoreId_A, Get_que_CoreToLaunch(concurrent_CoreId_B));
-    Set_que_CoreToLaunch(concurrent_CoreId_B, temp_UnnsignedChar);
+    unsigned char temp_UnnsignedChar;
+    temp_UnnsignedChar = obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_que_CoreToLaunch(concurrent_CoreId_A);
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_que_CoreToLaunch(concurrent_CoreId_A, obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_que_CoreToLaunch(concurrent_CoreId_B));
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_que_CoreToLaunch(concurrent_CoreId_B, temp_UnnsignedChar);
 }
 
 unsigned char Avril_FSD::ConcurrentQue_END_LaunchConcurrency_Control::Get_concurrentCycle_Try_CoreId_Index()

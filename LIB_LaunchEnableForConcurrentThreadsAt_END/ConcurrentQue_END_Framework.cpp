@@ -14,14 +14,6 @@ Avril_FSD::ConcurrentQue_END_Framework::~ConcurrentQue_END_Framework()
 {
 
 }
-void Avril_FSD::ConcurrentQue_END_Framework::Request_Wait_Launch(unsigned char concurrent_CoreId)
-{
-	Get_ConcurrentQue()->Thread_Start(concurrent_CoreId);
-}
-void Avril_FSD::ConcurrentQue_END_Framework::Thread_End(unsigned char concurrent_CoreId)
-{
-	Get_ConcurrentQue()->Thread_End(concurrent_CoreId);
-}
 Avril_FSD::ConcurrentQue_END_LaunchConcurrency* Avril_FSD::ConcurrentQue_END_Framework::Get_ConcurrentQue()
 {
 	return ptr_LaunchConcurrency;
@@ -29,10 +21,10 @@ Avril_FSD::ConcurrentQue_END_LaunchConcurrency* Avril_FSD::ConcurrentQue_END_Fra
 void Avril_FSD::ConcurrentQue_END_Framework::Create_ConcurrentQue()
 {
 	Set_ConcurrentQue(new class Avril_FSD::ConcurrentQue_END_LaunchConcurrency());
-	while (Get_class_ConcurrentQue() == NULL) { /* wait untill created */ }
-	Get_class_ConcurrentQue()->Initialise_Control();
+	while (Get__ConcurrentQue() == NULL) { /* wait untill created */ }
+	Get__ConcurrentQue()->Initialise_Control();
 }
-Avril_FSD::ConcurrentQue_END_LaunchConcurrency* Avril_FSD::ConcurrentQue_END_Framework::Get_class_ConcurrentQue()
+Avril_FSD::ConcurrentQue_END_LaunchConcurrency* Avril_FSD::ConcurrentQue_END_Framework::Get__ConcurrentQue()
 {
 	return ptr_LaunchConcurrency;
 }

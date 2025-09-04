@@ -20,39 +20,39 @@ void Avril_FSD::ConcurrentQue_END_LaunchConcurrency::Initialise_Control()
     Create_Control_Of_LaunchConcurrency();
 }
 
-void Avril_FSD::ConcurrentQue_END_LaunchConcurrency::Thread_Start(unsigned char concurrent_CoreId)
+void Avril_FSD::ConcurrentQue_END_LaunchConcurrency::Thread_Start(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId)
 {
-    Get_Control_Of_LaunchConcurrency()->LaunchEnable_Request(concurrent_CoreId, Get_LaunchConcurrency_Global());
-    Get_Control_Of_LaunchConcurrency()->LaunchQue_Update(Get_LaunchConcurrency_Global()->Get_number_Implemented_Cores());
-    Get_Control_Of_LaunchConcurrency()->LaunchEnable_SortQue(Get_LaunchConcurrency_Global(), Get_LaunchConcurrency_Global()->Get_number_Implemented_Cores());
-    Get_Control_Of_LaunchConcurrency()->LaunchEnable_Activate(Get_LaunchConcurrency_Global());
-    Get_Control_Of_LaunchConcurrency()->LaunchQue_Update(Get_LaunchConcurrency_Global()->Get_number_Implemented_Cores());
-    Get_Control_Of_LaunchConcurrency()->LaunchEnable_SortQue(Get_LaunchConcurrency_Global(), Get_LaunchConcurrency_Global()->Get_number_Implemented_Cores());
-    Get_Control_Of_LaunchConcurrency()->Set_flag_praisingLaunch(false);
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->LaunchEnable_Request(obj, concurrent_CoreId);
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->LaunchQue_Update(obj, obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_number_Implemented_Cores());
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->LaunchEnable_SortQue(obj, obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_number_Implemented_Cores());
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->LaunchEnable_Activate(obj);
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->LaunchQue_Update(obj, obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_number_Implemented_Cores());
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->LaunchEnable_SortQue(obj, obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_number_Implemented_Cores());
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_flag_praisingLaunch(false);
 }
 
-void Avril_FSD::ConcurrentQue_END_LaunchConcurrency::Thread_End(unsigned char concurrent_CoreId)
+void Avril_FSD::ConcurrentQue_END_LaunchConcurrency::Thread_End(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId)
 {
-    while (Get_Control_Of_LaunchConcurrency()->Get_flag_praisingLaunch() == true)
+    while (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_flag_praisingLaunch() == true)
     {
 
     }
-    Get_Control_Of_LaunchConcurrency()->Set_flag_praisingLaunch(true);
-    Get_Control_Of_LaunchConcurrency()->Set_concurrentCycle_Try_CoreId_Index(Get_Control_Of_LaunchConcurrency()->Get_new_concurrentCycle_Try_CoreId_Index());
-    if (Get_Control_Of_LaunchConcurrency()->Get_concurrentCycle_Try_CoreId_Index() == concurrent_CoreId)
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_flag_praisingLaunch(true);
+    obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_concurrentCycle_Try_CoreId_Index(obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_new_concurrentCycle_Try_CoreId_Index());
+    if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_concurrentCycle_Try_CoreId_Index() == concurrent_CoreId)
     {
-        Get_Control_Of_LaunchConcurrency()->Set_state_ConcurrentCore(concurrent_CoreId, Get_LaunchConcurrency_Global()->Get_flag_core_IDLE());
+        obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_state_ConcurrentCore(concurrent_CoreId, obj->Get_ConcurrentQue()->Get_LaunchConcurrency_Global()->Get_flag_core_IDLE());
     }
     else
     {
-        Get_Control_Of_LaunchConcurrency()->Set_new_concurrentCycle_Try_CoreId_Index(Get_Control_Of_LaunchConcurrency()->Get_concurrentCycle_Try_CoreId_Index() + 1);
+        obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_new_concurrentCycle_Try_CoreId_Index(obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_concurrentCycle_Try_CoreId_Index() + 1);
 
-        if (Get_Control_Of_LaunchConcurrency()->Get_new_concurrentCycle_Try_CoreId_Index() == 3)//NUMBER OF CONCURNT CORES
+        if (obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Get_new_concurrentCycle_Try_CoreId_Index() == 3)//NUMBER OF CONCURNT CORES
         {
-            Get_Control_Of_LaunchConcurrency()->Set_new_concurrentCycle_Try_CoreId_Index(0);
+            obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_new_concurrentCycle_Try_CoreId_Index(0);
         }
-        Get_Control_Of_LaunchConcurrency()->Set_flag_praisingLaunch(false);
-        Thread_End(concurrent_CoreId);
+        obj->Get_ConcurrentQue()->Get_Control_Of_LaunchConcurrency()->Set_flag_praisingLaunch(false);
+        obj->Get_ConcurrentQue()->Thread_End(obj, concurrent_CoreId);
     }
 }
 void Avril_FSD::ConcurrentQue_END_LaunchConcurrency::Create_ConcurrentQue_END_Global()

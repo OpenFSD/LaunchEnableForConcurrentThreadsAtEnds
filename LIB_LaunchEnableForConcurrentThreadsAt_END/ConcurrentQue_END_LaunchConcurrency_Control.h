@@ -7,13 +7,13 @@ namespace Avril_FSD
     class ConcurrentQue_END_LaunchConcurrency_Control
     {
     public:
-        ConcurrentQue_END_LaunchConcurrency_Control(class ConcurrentQue_END_Global* ptr_Global, unsigned char number_Implemented_Cores);
+        ConcurrentQue_END_LaunchConcurrency_Control(class ConcurrentQue_END_Global* global, unsigned char number_Implemented_Cores);
         virtual ~ConcurrentQue_END_LaunchConcurrency_Control();
 
-        void LaunchEnable_Activate(class ConcurrentQue_END_Global* ptr_Global);
-        void LaunchEnable_Request(unsigned char concurrent_CoreId, class ConcurrentQue_END_Global* ptr_Global);
-        void LaunchEnable_SortQue(class ConcurrentQue_END_Global* ptr_Global, unsigned char number_Implemented_Cores);
-        void LaunchQue_Update(unsigned char number_Implemented_Cores);
+        void LaunchEnable_Activate(class Avril_FSD::ConcurrentQue_END_Framework* obj);
+        void LaunchEnable_Request(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId);
+        void LaunchEnable_SortQue(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char number_Implemented_Cores);
+        void LaunchQue_Update(class Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char number_Implemented_Cores);
 
         unsigned char Get_concurrentCycle_Try_CoreId_Index();
         unsigned char Get_flag_CoreId_Of_CoreToLaunch();
@@ -30,8 +30,8 @@ namespace Avril_FSD
     protected:
 
     private:
-        void DynamicStagger(unsigned char ptr_coreId);
-        void LaunchEnable_ShiftQueValues(unsigned char concurrent_CoreId_A, unsigned char concurrent_CoreId_B);
+        void DynamicStagger(Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char coreId);
+        void LaunchEnable_ShiftQueValues(Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId_A, unsigned char concurrent_CoreId_B);
         
         int Get_count_LaunchActive_For(unsigned char concurrent_CoreId);
         int Get_count_LaunchIdle_For(unsigned char concurrent_CoreId);

@@ -7,13 +7,11 @@ namespace Avril_FSD
     public:
         ConcurrentQue_END_Framework();
         virtual ~ConcurrentQue_END_Framework();
-        void Request_Wait_Launch(unsigned char concurrent_CoreId);
-        void Thread_End(unsigned char concurrent_CoreId);
         class ConcurrentQue_END_LaunchConcurrency* Get_ConcurrentQue();
 
     private:
         static void Create_ConcurrentQue();
-        static class ConcurrentQue_END_LaunchConcurrency* Get_class_ConcurrentQue();
+        static class ConcurrentQue_END_LaunchConcurrency* Get__ConcurrentQue();
         static void Set_ConcurrentQue(class ConcurrentQue_END_LaunchConcurrency* concurrentQue);
     };
 }

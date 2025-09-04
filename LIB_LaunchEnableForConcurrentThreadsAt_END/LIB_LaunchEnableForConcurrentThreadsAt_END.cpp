@@ -20,12 +20,12 @@ void* Avril_FSD::ConcurrentQue_END::Initialise_ConcurrentQue()
 
 void Avril_FSD::ConcurrentQue_END::Request_Wait_Launch(Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId)
 {
-    obj->Request_Wait_Launch(concurrent_CoreId);
+    obj->Get_ConcurrentQue()->Thread_Start(obj, concurrent_CoreId);
 }
 
 void Avril_FSD::ConcurrentQue_END::Thread_End(Avril_FSD::ConcurrentQue_END_Framework* obj, unsigned char concurrent_CoreId)
 {
-    obj->Thread_End(concurrent_CoreId);
+    obj->Get_ConcurrentQue()->Thread_End(obj, concurrent_CoreId);
 }
 
 __int8 Avril_FSD::ConcurrentQue_END::Get_coreId_To_Launch(Avril_FSD::ConcurrentQue_END_Framework* obj)
